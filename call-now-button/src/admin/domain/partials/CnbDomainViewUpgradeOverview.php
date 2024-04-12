@@ -8,11 +8,12 @@ defined( 'ABSPATH' ) || die( '-1' );
 use cnb\admin\models\CnbPlan;
 use cnb\admin\models\CnbUser;
 use cnb\utils\CnbUtils;
+use WP_Error;
 
 class CnbDomainViewUpgradeOverview {
 
     /**
-     * @param $user CnbUser
+     * @param $user CnbUser|WP_Error
      *
      * @return string|null
      */

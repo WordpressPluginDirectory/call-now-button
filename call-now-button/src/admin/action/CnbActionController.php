@@ -201,8 +201,12 @@ class CnbActionController {
 
             foreach ( $actions as $action ) {
                 $processed_action = CnbAction::fromObject( $action );
-                // do the processing
-                $result = CnbAdminCloud::cnb_update_action( $cnb_cloud_notifications, $processed_action );
+				if ( is_wp_error( $processed_action ) ) {
+					$cnb_cloud_notifications[] = CnbAdminCloud::cnb_admin_get_error_message( 'update', 'action', $processed_action );
+				} else {
+					// do the processing
+					$result = CnbAdminCloud::cnb_update_action( $cnb_cloud_notifications, $processed_action );
+				}
             }
 
             // redirect the user to the appropriate page
@@ -328,10 +332,10 @@ class CnbActionController {
 	 * @return string[]
 	 */
 	function filter_action_types( $action_types ) {
-		/** @type CnbUser $cnb_user */
+		/** @type CnbUser|WP_Error|null $cnb_user */
 		global $cnb_user;
 		// remove CHAT key if $cnb_user->roles does not include ROLE_CHAT_USER
-		if ( $cnb_user && ! $cnb_user->has_role( 'ROLE_CHAT_USER' ) ) {
+		if ( $cnb_user && ! is_wp_error( $cnb_user ) && ! $cnb_user->has_role( 'ROLE_CHAT_USER' ) ) {
 			unset( $action_types['CHAT'] );
 		}
 

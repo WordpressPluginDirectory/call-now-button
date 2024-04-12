@@ -80,7 +80,7 @@ class CnbSettingsViewEdit {
     }
 
     /**
-     * @param $cnb_user CnbUser
+     * @param $cnb_user CnbUser|WP_Error
      *
      * @return void
      */
@@ -98,7 +98,7 @@ class CnbSettingsViewEdit {
                 <th colspan="2"></th>
             </tr>
 
-            <?php if ( $cnb_user !== null && ! $cnb_user instanceof WP_Error ) { ?>
+            <?php if ( $cnb_user !== null && ! is_wp_error( $cnb_user ) ) { ?>
                 <tr>
                     <th scope="row">Account owner</th>
                     <td>
@@ -185,10 +185,15 @@ class CnbSettingsViewEdit {
                 </td>
             </tr>
         </table>
-
         <?php
     }
 
+	/**
+	 * @param $cnb_domain CnbDomain|WP_Error
+	 * @param $cnb_user CnbUser|WP_Error
+	 *
+	 * @return void
+	 */
     private function render_advanced_options( $cnb_domain, $cnb_user ) {
         $cnb_options = get_option( 'cnb' );
         global $cnb_domains;
@@ -205,8 +210,7 @@ class CnbSettingsViewEdit {
         ?>
         <table data-tab-name="advanced_options"
                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">
-            <?php if ( isset( $cnb_domain ) && ! ( $cnb_domain instanceof WP_Error ) && $status === 'cloud' ) {
-                ?>
+            <?php if ( isset( $cnb_domain ) && ! is_wp_error( $cnb_domain ) && $status === 'cloud' ) { ?>
                 <tr>
                     <th colspan="2">
                         <h2>Domain settings</h2>
@@ -250,7 +254,7 @@ class CnbSettingsViewEdit {
                         <p class="description">Display API calls and timings in the footer.</p>
                     </td>
                 </tr>
-                <?php if ( ! ( $cnb_user instanceof WP_Error ) && isset( $cnb_domain ) ) { ?>
+                <?php if ( ! is_wp_error( $cnb_user ) && isset( $cnb_domain ) ) { ?>
                     <tr class="when-cloud-enabled">
                         <th scope="row"><label for="cnb[cloud_use_id]">JavaScript snippet</label></th>
                         <td>
