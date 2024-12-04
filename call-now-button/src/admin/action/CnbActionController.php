@@ -93,8 +93,9 @@ class CnbActionController {
 		$redirect_link =
 			add_query_arg(
 				array(
-					'page' => 'call-now-button-actions',
-					'tid'  => $transient_id,
+					'page'     => 'call-now-button-actions',
+					'tid'      => $transient_id,
+					'_wpnonce' => wp_create_nonce( $transient_id ),
 				),
 				admin_url( 'admin.php' ) );
 		$redirect_url  = esc_url_raw( $redirect_link );
@@ -153,10 +154,11 @@ class CnbActionController {
                 $redirect_link =
                     add_query_arg(
                         array(
-                            'page'   => 'call-now-button',
-                            'action' => 'edit',
-                            'id'     => $bid,
-                            'tid'    => $transient_id,
+                            'page'      => 'call-now-button',
+                            'action'    => 'edit',
+                            'id'        => $bid,
+                            'tid'       => $transient_id,
+	                        '_wpnonce' => wp_create_nonce( $transient_id ),
                         ),
                         $url );
             } else {
@@ -168,6 +170,7 @@ class CnbActionController {
                             'id'     => $new_action_id,
                             'tid'    => $transient_id,
                             'bid'    => $bid,
+                            '_wpnonce' => wp_create_nonce( $transient_id ),
                         ),
                         $url );
             }
@@ -221,21 +224,23 @@ class CnbActionController {
                 $redirect_link =
                     add_query_arg(
                         array(
-                            'page'   => 'call-now-button',
-                            'action' => 'edit',
-                            'id'     => $bid,
-                            'tid'    => $transient_id,
+                            'page'     => 'call-now-button',
+                            'action'   => 'edit',
+                            'id'       => $bid,
+                            'tid'      => $transient_id,
+                            '_wpnonce' => wp_create_nonce( $transient_id ),
                         ),
                         $url );
             } else {
                 $redirect_link =
                     add_query_arg(
                         array(
-                            'page'   => CNB_SLUG . '-actions',
-                            'action' => 'edit',
-                            'id'     => $result->id,
-                            'tid'    => $transient_id,
-                            'bid'    => $bid,
+                            'page'     => CNB_SLUG . '-actions',
+                            'action'   => 'edit',
+                            'id'       => $result->id,
+                            'tid'      => $transient_id,
+                            'bid'      => $bid,
+                            '_wpnonce' => wp_create_nonce( $transient_id ),
                         ),
                         $url );
             }
@@ -292,8 +297,9 @@ class CnbActionController {
                 $redirect_link =
                     add_query_arg(
                         array(
-                            'page' => 'call-now-button-actions',
-                            'tid'  => $transient_id,
+                            'page'     => 'call-now-button-actions',
+                            'tid'      => $transient_id,
+                            '_wpnonce' => wp_create_nonce( $transient_id ),
                         ),
                         $url );
                 $redirect_url  = esc_url_raw( $redirect_link );
@@ -333,10 +339,10 @@ class CnbActionController {
 	 * @return string[]
 	 */
 	function filter_action_types( $action_types ) {
-		/** @type CnbUser|WP_Error|null $cnb_user */
-		global $cnb_user;
-		// remove CHAT key if $cnb_user->roles does not include ROLE_CHAT_USER
-		if ( $cnb_user && ! is_wp_error( $cnb_user ) && ! $cnb_user->has_role( 'ROLE_CHAT_USER' ) ) {
+		$chat_enabled = (new CnbUtils())->is_chat_api_enabled();
+
+		// remove CHAT key if chat is not enabled for this user
+		if ( !$chat_enabled ) {
 			unset( $action_types['CHAT'] );
 		}
 
