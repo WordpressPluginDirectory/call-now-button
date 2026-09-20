@@ -29,7 +29,6 @@ docs/Model/ActionDeleteResponse.md
 docs/Model/ActionSchedule.md
 docs/Model/ActionUpdateRequest.md
 docs/Model/Address.md
-docs/Model/ApiServerException.md
 docs/Model/ApiServerExceptionResponse.md
 docs/Model/ApiServerExceptionWithErrorCode.md
 docs/Model/Apikey.md
@@ -149,6 +148,8 @@ docs/Model/SettingsOptions.md
 docs/Model/SlotClaim.md
 docs/Model/SlotClaimResponse.md
 docs/Model/SlotFields.md
+docs/Model/SlugAvailability.md
+docs/Model/SlugUpdateRequest.md
 docs/Model/StripeAgencyPlan.md
 docs/Model/StripeAgencyPlanPrice.md
 docs/Model/StripeBillingPortal.md
@@ -176,6 +177,7 @@ docs/Model/ValidationResult.md
 docs/Model/Verification.md
 docs/Model/WordPressInfo.md
 docs/Model/WordPressSignupCreateRequest.md
+docs/Model/WordPressSignupCreateResponse.md
 docs/Model/Workspace.md
 docs/Model/WorkspaceCreateRequest.md
 docs/Model/WorkspaceDomainPersonaCreateRequest.md
@@ -213,7 +215,6 @@ lib/Model/ActionDeleteResponse.php
 lib/Model/ActionSchedule.php
 lib/Model/ActionUpdateRequest.php
 lib/Model/Address.php
-lib/Model/ApiServerException.php
 lib/Model/ApiServerExceptionResponse.php
 lib/Model/ApiServerExceptionWithErrorCode.php
 lib/Model/Apikey.php
@@ -334,6 +335,8 @@ lib/Model/SettingsOptions.php
 lib/Model/SlotClaim.php
 lib/Model/SlotClaimResponse.php
 lib/Model/SlotFields.php
+lib/Model/SlugAvailability.php
+lib/Model/SlugUpdateRequest.php
 lib/Model/StripeAgencyPlan.php
 lib/Model/StripeAgencyPlanPrice.php
 lib/Model/StripeBillingPortal.php
@@ -361,6 +364,7 @@ lib/Model/ValidationResult.php
 lib/Model/Verification.php
 lib/Model/WordPressInfo.php
 lib/Model/WordPressSignupCreateRequest.php
+lib/Model/WordPressSignupCreateResponse.php
 lib/Model/Workspace.php
 lib/Model/WorkspaceCreateRequest.php
 lib/Model/WorkspaceDomainPersonaCreateRequest.php

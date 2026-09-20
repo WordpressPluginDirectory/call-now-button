@@ -727,6 +727,19 @@ class CallNowButton {
     }
 
     /**
+     * "admin_post_nopriv" actions, these run for visitors that are not logged in.
+     *
+     * The activation link from the connection e-mail can be opened while logged out (different browser/profile,
+     * or an expired session). Send those visitors to the login page instead of showing an empty page.
+     *
+     * @return void
+     */
+    public function register_admin_post_nopriv_actions() {
+        $ott_key_controller = new OttController();
+        add_action( 'admin_post_nopriv_cnb_apikey_activate', array( $ott_key_controller, 'redirect_to_login' ) );
+    }
+
+    /**
      * Page specific "admin_post" actions to handle basic CRUD actions
      *
      * These are subject to the same user/capability level as the CallNowButton plugin pages.
@@ -745,11 +758,13 @@ class CallNowButton {
         add_action( 'admin_post_cnb_create_multi_button', array( $button_controller, 'create' ) );
         add_action( 'admin_post_cnb_create_full_button', array( $button_controller, 'create' ) );
         add_action( 'admin_post_cnb_create_dots_button', array( $button_controller, 'create' ) );
+        add_action( 'admin_post_cnb_create_flower_button', array( $button_controller, 'create' ) );
 
         add_action( 'admin_post_cnb_update_single_button', array( $button_controller, 'update' ) );
         add_action( 'admin_post_cnb_update_multi_button', array( $button_controller, 'update' ) );
         add_action( 'admin_post_cnb_update_full_button', array( $button_controller, 'update' ) );
         add_action( 'admin_post_cnb_update_dots_button', array( $button_controller, 'update' ) );
+        add_action( 'admin_post_cnb_update_flower_button', array( $button_controller, 'update' ) );
 
         add_action( 'admin_post_cnb_delete_button', array( $button_controller, 'delete' ) );
         add_action( 'admin_post_cnb_buttons_bulk', array( $button_controller, 'handle_bulk_actions' ) );
